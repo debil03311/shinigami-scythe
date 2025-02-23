@@ -8,5 +8,5 @@ Currently supported websites are:
 - Twitter / X
 - YouTube
 
-[!NOTE]
-If you notice that blocked content is sneaking through, or if you would like for a website to be supported, open a PR or an issue and wait for an extension update.
+> [!NOTE]
+> If you notice that blocked content is sneaking through, or if you would like for a website to be supported, open a PR or an issue and wait for an extension update.
