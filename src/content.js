@@ -79,8 +79,13 @@ const selectors = {
 selectors['twitter.com'] = selectors['x.com']
 
 const reactor = new MutationReactor(document.body, () => {
+  const selector = selectors[location.hostname]
+
+  if (!selector)
+    return
+
   try {
-    const posts = document.querySelectorAll(selectors[location.hostname])
+    const posts = document.querySelectorAll(selector)
 
     if (!posts.length)
       return
