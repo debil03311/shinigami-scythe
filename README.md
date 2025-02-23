@@ -1,6 +1,6 @@
 # Shinigami Scythe
 
-This extension removes content posted by people marked as transphobic by the [Shinigami Eyes] browser extension.
+This extension removes content posted by people marked as transphobic by the [Shinigami Eyes](https://shinigami-eyes.github.io/) browser extension.
 
 Currently supported websites are:
 - Bluesky
