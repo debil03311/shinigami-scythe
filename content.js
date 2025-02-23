@@ -81,16 +81,16 @@ selectors['twitter.com'] = selectors['x.com']
 const reactor = new MutationReactor(document.body, () => {
   try {
     const posts = document.querySelectorAll(selectors[location.hostname])
+
+    if (!posts.length)
+      return
+
+    reactor.sneak(()=> posts.forEach((post) => post.remove()))
   }
   catch (error) {
     console.error(error)
-    alert(`Shinigami Scythe: Query selector error. Check the console for details.`)
+    alert(`Shinigami Scythe has encountered an unexpected error. Check the console for details.`)
     reactor.stop()
   }
-
-  if (!posts.length)
-    return
-
-  reactor.sneak(()=> posts.forEach((post) => post.remove()))
 })
   .start()
