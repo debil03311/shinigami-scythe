@@ -1,4 +1,4 @@
-console.log('🔪 Shinigami Scythe loaded.')
+console.info('%c🔪 Shinigami Scythe content script loaded.', 'color: lime')
 
 // More convenient observer
 class MutationReactor extends MutationObserver {
