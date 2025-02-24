@@ -1,5 +1,6 @@
 console.log('🔪 Shinigami Scythe loaded.')
 
+// More convenient observer
 class MutationReactor extends MutationObserver {
   constructor(targetElement, callback, options={childList: true, subtree: true}) {
     super(callback)
@@ -47,13 +48,25 @@ class MutationReactor extends MutationObserver {
   }
 }
 
+//#region Utilities
+
+/**
+ * Combine different CSS selectors into a single one, appending a
+ * .assigned-label-transphobic checker on each one.
+ * @param {...string} strings - Individual CSS selectors
+ * @returns {string} - Joined CSS selector
+ */
 function makeSelector(...strings) {
   return strings
     .map((string) => string + ':has(.assigned-label-transphobic)')
     .join(',')
 }
 
-// :has(.assigned-label-transphobic),
+//#endregion
+//#region CSS Selectors
+
+// TLD-specific CSS selectors for user content
+// { [tld: string]: [selector: string] }
 const selectors = {
   'x.com': makeSelector(
     '[data-testid="tweet"]',
@@ -78,10 +91,16 @@ const selectors = {
   ),
 }
 
+// TLD aliases
 selectors['twitter.com'] = selectors['x.com']
 
+// Get selector for current website
 const selector = Object.entries(selectors)
+  // Check if TLD is contained within the current URL's hostname
   .find(([domain, selector]) => location.hostname.includes(domain))
+
+//#endregion CSS Selectors
+//#region DOM Checking
 
 const reactor = new MutationReactor(document.body, () => {
   if (!selector)
@@ -102,3 +121,5 @@ const reactor = new MutationReactor(document.body, () => {
   }
 })
   .start()
+
+//#endregion
