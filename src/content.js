@@ -1,3 +1,5 @@
+console.log('🔪 Shinigami Scythe loaded.')
+
 class MutationReactor extends MutationObserver {
   constructor(targetElement, callback, options={childList: true, subtree: true}) {
     super(callback)
@@ -78,11 +80,12 @@ const selectors = {
 
 selectors['twitter.com'] = selectors['x.com']
 
-const reactor = new MutationReactor(document.body, () => {
-  const selector = selectors[location.hostname]
+const selector = Object.entries(selectors)
+  .find(([domain, selector]) => location.hostname.includes(domain))
 
+const reactor = new MutationReactor(document.body, () => {
   if (!selector)
-    return
+    return console.info('This website is not supported by Shinigami Scythe.')
 
   try {
     const posts = document.querySelectorAll(selector)
@@ -93,7 +96,7 @@ const reactor = new MutationReactor(document.body, () => {
     reactor.sneak(()=> posts.forEach((post) => post.remove()))
   }
   catch (error) {
-    console.error(error)
+    console.error(`Shinigami Scythe has encountered an unexpected error.`, error)
     alert(`Shinigami Scythe has encountered an unexpected error. Check the console for details.`)
     reactor.stop()
   }
